@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVR Cinema Online Movie Ticket Booking</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'booking/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="login-bar">
+                {% if user.is_authenticated %}
+                    <p>Welcome, {{ user.username }}!</p>
+                    <form method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                   <button onclick="openRegisterModal()">Register</button>
+                   <button onclick="openLoginModal()">Login</button>
+                {% endif %}
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button>
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <h1>PVR Cinema</h1>
+
+    </header>
+    <main>
+        <div id="registerForm" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeRegisterModal()">&times;</span>
+                <h2 class="form-title">Register</h2>
+                <form id="registerFormFields">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+
+        <section id="now-showing" class="movie-section">
+            <h2>Now Showing</h2>
+            <div class="carousel-container">
+                <button class="carousel-button left">&#9664;</button>
+                <div class="carousel-track-container">
+                    <ul class="carousel-track">
+                         <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEi_f1LT9OGrMaDX-kMpUs7QSDuJ5jWWGvjg&s');">
+                             <div class="movie-content">
+                                 <h3>Harry Potter</h3>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                         </li>
+
+                         <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyigtEP7shCN1Lfx6SLMc6sa_6A444sEziOQ&s');">
+                             <div class="movie-content">
+                                 <h4>Frozen</h4>
+                                 <p>Show Time: 1:00 PM, 7:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                         </li>
+
+
+                         <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTta061HMgP7V7EDHwmjP46VorHpKdSOR-JGw&s');">
+                             <div class="movie-content">
+                                  <h5>Avengers end game</h5>
+                                  <p>Show Time: 4:00 PM, 7:00 PM</p>
+                                  <button>Book Tickets</button>
+                             </div>
+                         </li>
+
+                         <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwjvtARVQAFZvjgby4i1ev7I2h0OgHcG8YoQ&s');">
+                             <div class="movie-content">
+                                 <h6>Lord of the Rings</h6>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                         </li>
+
+                         <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjwVxfxXuK_GLNgaJHZtXS8Nb1mhO1pb4YIA&s');">
+                             <div class="movie-content">
+                                 <h7>Tangled</h7>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                         </li>
+
+                         <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQieXb2rE94E8wd8dRP9UKDghcPxL6QtHG7Cg&s');">
+                             <div class="movie-content">
+                                 <h8>Mulan</h8>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                         </li>
+                         <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR9o6VSS_WXQJDqqyPr8w7quybm_qusLxZWg&s');">
+                             <div class="movie-content">
+                                 <h8>Civil War</h8>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                         </li>
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgTv3htBT-VwINHRBIZGaXknvcpR1GofhudQ&s');">
+                             <div class="movie-content">
+                                 <h8>Toy story</h8>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                        </li>
+                        <li class="movie-card" style="background-image: url('https://theatersollution.s3.amazonaws.com/0297a8c7-7090-485e-bd09-27ee1fd4521f.jpg');">
+                             <div class="movie-content">
+                                 <h8>Bad boys</h8>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                         </li>
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHPduh8yd14utd1EED6yHXQC8EQ2yhGsnGtg&s');">
+                             <div class="movie-content">
+                                 <h8>The Garfield Movie</h8>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                        </li>
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSex9z_yJu4CS79mWuzjqybAcQL3j0Ld94wNA&s');">
+                             <div class="movie-content">
+                                 <h8>The Kingdom Of the Planet of Apes</h8>
+                                 <p>Show Time: 1:00 PM, 4:00 PM</p>
+                                 <button>Book Tickets</button>
+                             </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="carousel-button right">&#9654;</button>
+             </div>
+        </section>
+        <section id="coming-soon" class="movie-section">
+            <h2>Coming Soon</h2>
+            <div class="carousel-container">
+                <button class="carousel-button left">&#9664;</button>
+                <div class="carousel-track-container">
+                    <ul class="carousel-track">
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkUkFrAsNqha8jJvlQ5Uq8XCGeFxK8jzQysQ&s');">
+                             <div class="movie-content">
+                                 <h3>Moana 2</h3>
+                             </div>
+                        </li>
+
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7iJnu1CWporn6EY2yJjf-BDGD_jxVUHvsng&s');">
+                            <div class="movie-content">
+                                <h3>Sonic the Hedgehog 3</h3>
+                            </div>
+                        </li>
+
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeX0fj_jPXQzxV_Nr0Rt9jccHlg-M04jV_Fw&s');">
+                            <div class="movie-content">
+                                 <h3>Mufasa the Lion King</h3>
+                            </div>
+                        </li>
+
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0bR-ftoc6okCcwnH03qEXi0R-Su1kBA8nkw&s');">
+                            <div class="movie-content">
+                                <h3>Wolverine</h3>
+                            </div>
+                        </li>
+
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjU3p6Cr6EOuKLZFQj_RAzHZozDKAKtzeKnw&s');">
+                            <div class="movie-content">
+                                <h3>Deadpool</h3>
+                            </div>
+                        </li>
+
+                        <li class="movie-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1L4V9q5tRALlF8OmN5sPUfFR8SCOvQN7OMw&s');">
+                            <div class="movie-content">
+                                <h3>The Flash</h3>
+                            </div>
+                        </li>
+                        <li class="movie-card" style="background-image: url('https://m.media-amazon.com/images/M/MV5BNjRmNDI5MjMtMmFhZi00YzcwLWI4ZGItMGI2MjI0N2Q3YmIwXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg');">
+                            <div class="movie-content">
+                                <h3>Black Widow</h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="carousel-button right">&#9654;</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Movie Ticket Booking</p>
+    </footer>
+    <script src="script.js"></script>
+
+<script>
+    const track = document.querySelector('.carousel-track');
+    const leftButton = document.querySelector('.carousel-button.left');
+    const rightButton = document.querySelector('.carousel-button.right');
+    const cards = Array.from(track.children);
+    const cardWidth = cards[0].getBoundingClientRect().width;
+
+    let currentSlide = 0;
+
+    function updateCarousel() {
+        const amountToMove = currentSlide * cardWidth;
+        track.style.transform = `translateX(-${amountToMove}px)`;
+    }
+
+    rightButton.addEventListener('click', () => {
+        if (currentSlide < cards.length - 1) {
+            currentSlide++;
+            updateCarousel();
+        }
+    });
+
+    leftButton.addEventListener('click', () => {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateCarousel();
+        }
+    });
+</script>
+
+<div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeLoginModal()">&times;</span>
+            <h2 class="form-title">Login</h2> <!-- Added class form-title -->
+            <form id="loginForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Display User Info -->
+    <div id="userInfo" class="user-info"></div>
+
+     <script src="{% static 'booking/js/script.js' %}"></script>
+     <script>
+        // Get modal element
+        const loginModal = document.getElementById('loginModal');
+        // Get form element
+        const loginForm = document.getElementById('loginForm');
+        // Get user info display element
+        const userInfo = document.getElementById('userInfo');
+
+        // Open modal
+        function openLoginModal() {
+            loginModal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeLoginModal() {
+            loginModal.style.display = 'none';
+        }
+
+        // Form submit event
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            userInfo.innerHTML = `<p>Name: ${name}</p><p>Email: ${email}</p>`;
+            closeLoginModal();
+        });
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                closeLoginModal();
+            }
+        }
+    </script>
+<script>
+        const registerModal = document.getElementById('registerForm');
+        const registerForm = document.getElementById('registerFormFields');
+
+        function openRegisterModal() {
+            registerModal.style.display = 'block';
+        }
+
+        function closeRegisterModal() {
+            registerModal.style.display = 'none';
+        }
+
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // You can add your validation logic here
+
+            // For demonstration, just displaying the entered values
+            console.log("Username:", username);
+            console.log("Email:", email);
+            console.log("Password:", password);
+            console.log("Confirm Password:", confirmPassword);
+            closeRegisterModal();
+        });
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == registerModal) {
+                closeRegisterModal();
+            }
+        }
+</script>
+
+</body>
+</html>
